@@ -1,14 +1,20 @@
 project(boost)
 cmake_minimum_required(VERSION 2.8)
 
+if(NOT CMAKE_BUILD_TYPE)
+	set(CMAKE_BUILD_TYPE "Release")
+endif()
+
 set( BOOST_ROOT_SOURCE_DIR     ${PROJECT_SOURCE_DIR} )
 set( BOOST_ROOT_BINARY_DIR     ${PROJECT_BINARY_DIR} )
 set( BOOST_LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR} )
 
-# Choose a path of your boost header files.
+# The boost header files are compressed in boost.7z.
+# Choose a path for your boost header files.
+#
 # For example:
-# set(BOOST_INCLUDE_DIR "D:/sdk/boost" )
-# set(BOOST_INCLUDE_DIR "~/sdk/boost" )
+#     set(BOOST_INCLUDE_DIR "/opt/sdk/boost" )
+#     set(BOOST_INCLUDE_DIR "D:/sdk/boost" )
 
 if( NOT DEFINED BOOST_INCLUDE_DIR)
 	message("You have to define BOOST_INCLUDE_DIR to choose a path of your boost header files.")
