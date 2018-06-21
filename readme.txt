@@ -6,6 +6,7 @@ It can make libraries below.
 
 	boost_atomic.a
 	boost_filesystem.a
+	boost_regex.a
 	boost_signals.a
 	boost_system.a
 	boost_thread.a
