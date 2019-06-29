@@ -9,4 +9,5 @@ It can make libraries below.
 	boost_regex.a
 	boost_signals.a
 	boost_system.a
+	boost_chrono.a
 	boost_thread.a

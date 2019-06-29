@@ -1,47 +1,41 @@
 
-set(PROJECT_NAME boost_thread)
+set(PROJECT_NAME boost_chrono)
 
 project(${PROJECT_NAME})
 
 include_directories(${BOOST_INCLUDE_DIR})
 
 if(BOOST_BUILD_SHARED_LIBS)
-	add_definitions(-DBOOST_THREAD_BUILD_DLL=1)
-	#add_definitions(-DBOOST_THREAD_USE_DLL=1)
+	add_definitions(-DBOOST_CHRONO_DYN_LINK=1)
+#	add_definitions(-DBOOST_CHRONO_STATIC_LINK=0)
 else()
-	add_definitions(-DBOOST_THREAD_BUILD_LIB=1)
-	#add_definitions(-DBOOST_THREAD_USE_LIB=1)
+#	add_definitions(-DBOOST_CHRONO_DYN_LINK=0)
+	add_definitions(-DBOOST_CHRONO_STATIC_LINK=1)
 endif()
 
-
 set(SOURCE
-	src/future.cpp
+	src/chrono.cpp
+	src/process_cpu_clocks.cpp
+	src/thread_clock.cpp
 )
 
 set(LIB
 	boost_system
-	boost_chrono
 )
 
 if(WIN32)
 
+	add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
+#	add_definitions(-DBOOST_CHRONO_THREAD_DISABLED)
+
 	if(MINGW)
-		add_definitions(-O2 -g -fdiagnostics-show-option)
+		add_definitions(-O2 -fdiagnostics-show-option)
 	endif()
 
-	list(APPEND SOURCE
-		src/win32/thread.cpp
-		src/win32/tss_dll.cpp
-		src/win32/tss_pe.cpp
-	)
-
 elseif(UNIX)
-
-	add_definitions(-DBOOST_THREAD_POSIX)
-
-	list(APPEND SOURCE
-		src/pthread/thread.cpp
-		src/pthread/once.cpp
+	list(APPEND LIB
+		rt
+		pthread
 	)
 
 endif()
